@@ -1,26 +1,24 @@
 /*
   AKARSU ARITMA: SİTENİN TEK VERİ DOSYASI
-  Fiyat, cihaz, paket ve iletişim bilgileri yalnızca burada değişir.
+  Fiyat, cihaz, paket, soru ve iletişim bilgileri yalnızca burada değişir.
 
-  dogrulandi: true  -> işletme onayladı
+  dogrulandi: true  -> işletme onayladı, "taslak" rozeti kalkar
   dogrulandi: false -> afişten veya kullanıcı beyanından alındı, onay bekliyor
 
   Bu dosya herkese açık indirilir. İç not, komisyon, kişisel bilgi YAZILMAZ.
 */
 window.AKARSU = {
   ayar: {
-    // true iken sayfanın üstünde "önizleme" şeridi ve fiyatlarda "taslak" etiketi çıkar
+    // true iken onaylanmamış fiyatların altında "taslak fiyat" rozeti çıkar
     taslak: true,
     // false yapılırsa bütün fiyatlar gizlenir, yerine "Fiyat için arayın" yazar
     fiyatGoster: true
   },
 
   iletisim: {
-    telefonGorunen: "0531 209 18 08",
-    telefonUluslararasi: "905312091808",
+    telefon: "0531 209 18 08",
     bolge: "İstanbul Anadolu Yakası",
-    bolgeDogrulandi: false,
-    adres: "",
+    waMesaj: "Merhaba, su arıtma cihazları hakkında bilgi almak istiyorum.",
     calismaSaatleri: ""
   },
 
@@ -29,12 +27,12 @@ window.AKARSU = {
       kod: "lg",
       ad: "LG So Good Purifier",
       kisa: "Tezgah altı su arıtma cihazı",
-      pompa: null,
-      ozellikler: [
-        "Tezgah altı kurulum",
-        "Nominal 8 litre tank"
+      etiket: "Tezgah altı",
+      bilgi: [
+        ["Kurulum", "Tezgah altı"],
+        ["Tank", "Nominal 8 litre"]
       ],
-      eksik: "Model kodu, filtre yapısı ve pompa bilgisi netleşiyor.",
+      eksik: "Model kodu, filtre yapısı ve pompa bilgisini görüşmede netleştiriyoruz.",
       fiyat: { pesin: 10000, kart: 11000, elden: 14500 },
       dogrulandi: false
     },
@@ -42,14 +40,13 @@ window.AKARSU = {
       kod: "hyundai",
       ad: "Hyundai HND-35",
       kisa: "Pompalı, 5 aşamalı ters ozmoz",
-      pompa: true,
-      ozellikler: [
-        "Ters ozmoz (RO) arıtma",
-        "5 filtre aşaması",
-        "80 GPD membran",
-        "Nominal 8 litre tank",
-        "Pompalı, elektrik bağlantısı gerekir",
-        "Tezgah altı kapalı kasa"
+      etiket: "Pompalı",
+      bilgi: [
+        ["Arıtma", "Ters ozmoz (RO), 5 filtre aşaması"],
+        ["Membran", "80 GPD"],
+        ["Tank", "Nominal 8 litre"],
+        ["Pompa", "Var, elektrik bağlantısı gerekir"],
+        ["Kurulum", "Tezgah altı, kapalı kasa"]
       ],
       eksik: "",
       fiyat: { pesin: 13500, kart: 14500, elden: 17500 },
@@ -59,12 +56,11 @@ window.AKARSU = {
       kod: "rostar",
       ad: "RO-STAR",
       kisa: "Tezgah altı su arıtma cihazı",
-      pompa: null,
-      ozellikler: [
-        "Tezgah altı kurulum",
-        "Kapalı kasa"
+      etiket: "Tezgah altı",
+      bilgi: [
+        ["Kurulum", "Tezgah altı, kapalı kasa"]
       ],
-      eksik: "Model kodu, filtre yapısı ve tank bilgisi netleşiyor.",
+      eksik: "Model kodu, filtre yapısı ve tank bilgisini görüşmede netleştiriyoruz.",
       fiyat: { pesin: 16000, kart: 17000, elden: 20000 },
       dogrulandi: false
     },
@@ -72,13 +68,14 @@ window.AKARSU = {
       kod: "ranger",
       ad: "RO-Toshiba Ranger Smart",
       kisa: "Pompasız ters ozmoz",
-      pompa: false,
-      ozellikler: [
-        "Ters ozmoz (RO) arıtma",
-        "80 GPD membran",
-        "2,2 galon nominal tank",
-        "Sediment, GAC ve blok karbon ön filtre",
-        "Tezgah altı, pompasız"
+      etiket: "Pompasız",
+      bilgi: [
+        ["Arıtma", "Ters ozmoz (RO)"],
+        ["Membran", "80 GPD"],
+        ["Tank", "2,2 galon nominal"],
+        ["Ön filtre", "Sediment, GAC ve blok karbon"],
+        ["Pompa", "Yok, elektrik gerekmez"],
+        ["Kurulum", "Tezgah altı"]
       ],
       eksik: "",
       fiyat: { pesin: 17000, kart: 18000, elden: 21000 },
@@ -86,56 +83,53 @@ window.AKARSU = {
     }
   ],
 
-  // Karşılaştırma tablosu. null = bilgi netleşiyor
-  karsilastirma: [
-    { baslik: "Kurulum", degerler: { lg: "Tezgah altı", hyundai: "Tezgah altı", rostar: "Tezgah altı", ranger: "Tezgah altı" } },
-    { baslik: "Pompa", degerler: { lg: null, hyundai: "Var", rostar: null, ranger: "Yok" } },
-    { baslik: "Arıtma", degerler: { lg: null, hyundai: "Ters ozmoz", rostar: null, ranger: "Ters ozmoz" } },
-    { baslik: "Membran", degerler: { lg: null, hyundai: "80 GPD", rostar: null, ranger: "80 GPD" } },
-    { baslik: "Nominal tank", degerler: { lg: "8 L", hyundai: "8 L", rostar: null, ranger: "2,2 galon" } },
-    { baslik: "Elektrik", degerler: { lg: null, hyundai: "Gerekir", rostar: null, ranger: "Gerekmez" } }
-  ],
-
   bakimPaketleri: [
-    { ad: "Standart 5'li Set", fiyat: 1900, not: "Beş filtrenin değişimi", dogrulandi: false },
-    { ad: "Premium 5'li Set", fiyat: 2400, not: "Beş filtrenin değişimi", dogrulandi: false },
-    { ad: "Alkali 5'li Set", fiyat: 2900, not: "Beş filtrenin değişimi, alkali filtreli set", dogrulandi: false }
+    { ad: "Standart 5'li Set", kisa: "Beş filtrenin değişimi", fiyat: 1900, dogrulandi: false },
+    { ad: "Premium 5'li Set", kisa: "Beş filtrenin değişimi", fiyat: 2400, dogrulandi: false },
+    { ad: "Alkali 5'li Set", kisa: "Beş filtrenin değişimi, alkali filtreli set", fiyat: 2900, dogrulandi: false }
   ],
 
   // Bakım ziyaretinde yapılan işlemler. Hangi pakete dahil olduğu henüz netleşmedi
   bakimIslemleri: [
-    { baslik: "Filtrelerin değişimi", aciklama: "Cihazdaki filtreler yenilenir, takılan filtreler size söylenir." },
-    { baslik: "Tank hava basıncı kontrolü", aciklama: "Basınçlı tankın hava tarafı kontrol edilip uygun ekipmanla ayarlanır." },
-    { baslik: "Hortumların temizliği", aciklama: "Hortumlar basınçlı suyla yıkanır." },
-    { baslik: "Musluk bakımı", aciklama: "Arıtma musluğunun bakımı ve gerekiyorsa onarımı yapılır." },
-    { baslik: "Bağlantıların sabitlenmesi", aciklama: "Hortum bağlantıları kontrol edilir, klipslerle sabitlenir." },
-    { baslik: "Durulama", aciklama: "Yeni filtreler kullanıma geçmeden önce durulanır." }
+    "Filtrelerin değişimi",
+    "Tank hava basıncının kontrolü ve ayarı",
+    "Hortumların basınçlı suyla temizliği",
+    "Musluğun bakımı, gerekiyorsa onarımı",
+    "Bağlantıların kontrolü ve klipslerle sabitlenmesi",
+    "Yeni filtrelerin durulanması"
   ],
 
-  sorular: [
+  // Sarmal düzeninde sorular iki kolonda, başlıklı gruplar hâlinde durur
+  soruGruplari: [
     {
-      soru: "Pompalı mı almalıyım, pompasız mı?",
-      cevap: "Ters ozmoz cihazları çalışmak için belirli bir şebeke basıncına ihtiyaç duyar. Evinizin su basıncı düşükse pompalı cihaz gerekir, pompalı cihaz ise prize bağlanır. Basıncı kurulumdan önce birlikte kontrol ediyor, ona göre öneriyoruz."
+      baslik: "Cihaz seçimi",
+      sorular: [
+        ["Pompalı mı almalıyım, pompasız mı?", "Ters ozmoz cihazları çalışmak için belirli bir şebeke basıncına ihtiyaç duyar. Evinizin su basıncı düşükse pompalı cihaz gerekir, pompalı cihaz ise prize bağlanır. Basıncı kurulumdan önce birlikte kontrol ediyor, ona göre öneriyoruz."],
+        ["Cihaz nereye kuruluyor, ne kadar yer kaplar?", "Cihazlarımızın hepsi tezgah altına, genellikle eviye dolabının içine kurulur. Dolabınızın ölçüsüne göre hangi cihazın sığacağını görüşmede netleştiriyoruz."],
+        ["Damacanaya göre hesaplı mı?", "Bu, evinizde ayda kaç damacana bittiğine bağlı. Aylık damacana harcamanızı cihaz ve bakım bedeliyle yan yana koyup birlikte hesaplıyoruz. Herkese aynı rakamı söylemiyoruz, çünkü herkesin tüketimi farklı."]
+      ]
     },
     {
-      soru: "Cihaz nereye kuruluyor, ne kadar yer kaplar?",
-      cevap: "Cihazlarımızın hepsi tezgah altına, genellikle eviye dolabının içine kurulur. Dolabınızın ölçüsüne göre hangi cihazın sığacağını görüşmede netleştiriyoruz."
+      baslik: "Bakım",
+      sorular: [
+        ["Bakımda neler yapılıyor?", "Filtreler değiştirilir; tank basıncı, hortumlar, musluk ve bağlantılar kontrol edilir. Seçtiğiniz pakete neyin dahil olduğunu teklifte yazılı olarak veriyoruz."],
+        ["Paketler arasındaki fark ne?", "Üç paket de beş filtrelik settir. Aralarındaki farkı ve cihazınıza hangisinin uygun olduğunu görüşmede anlatıyoruz."]
+      ]
     },
     {
-      soru: "Bakımda neler yapılıyor?",
-      cevap: "Filtreler değiştirilir; tank basıncı, hortumlar, musluk ve bağlantılar kontrol edilir. Seçtiğiniz pakete neyin dahil olduğunu teklifte yazılı olarak veriyoruz."
+      baslik: "Ödeme",
+      sorular: [
+        ["Fiyata neler dahil?", "Montaj, taksit sayısı ve ödeme şartlarını cihaz seçildikten sonra açıkça yazıyoruz. Aklınıza takılan her kalemi arayıp sorabilirsiniz."],
+        ["Hangi ödeme seçenekleri var?", "Peşin, kredi kartı ve elden taksit. Sayfadaki kart ve elden taksit rakamları toplam bedeldir, aylık taksit değildir."],
+        ["Garanti var mı?", "Garanti süresini ve kapsamını cihaz modeline göre satış sırasında yazılı olarak veriyoruz."]
+      ]
     },
     {
-      soru: "Fiyata neler dahil?",
-      cevap: "Montaj, taksit sayısı ve ödeme şartlarını cihaz seçildikten sonra açıkça yazıyoruz. Aklınıza takılan her kalemi arayıp sorabilirsiniz."
-    },
-    {
-      soru: "Garanti var mı?",
-      cevap: "Garanti süresini ve kapsamını cihaz modeline göre satış sırasında yazılı olarak veriyoruz."
-    },
-    {
-      soru: "Randevu nasıl alınıyor?",
-      cevap: "Arayın veya WhatsApp'tan yazın. Size uygun günü birlikte belirleyip teyit ediyoruz."
+      baslik: "Randevu",
+      sorular: [
+        ["Randevu nasıl alınıyor?", "Arayın veya WhatsApp'tan yazın. Size uygun günü birlikte belirleyip teyit ediyoruz."],
+        ["Hangi bölgelere geliyorsunuz?", "İstanbul Anadolu Yakası'nda hizmet veriyoruz. İlçenizi yazın, gelebileceğimiz günü söyleyelim."]
+      ]
     }
   ]
 };
